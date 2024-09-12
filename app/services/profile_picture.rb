@@ -15,6 +15,7 @@ class ProfilePicture
         src: normalize_url(path),
         small: options[:small] || nil,
         large: options[:large] || nil,
+        medium: options[:medium] || nil,
         alt: alt
       }
     end
