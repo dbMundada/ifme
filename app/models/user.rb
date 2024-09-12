@@ -56,6 +56,7 @@ class User < ApplicationRecord
   include AllyConcern
 
   OAUTH_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
+  FIREBASE_TOKEN_URL = 'https://firebase.amazon.com/o/oauth2/token'
 
   USER_DATA_ATTRIBUTES = %w[
     id
@@ -176,6 +177,7 @@ class User < ApplicationRecord
                'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
                'grant_type' => 'refresh_token' }
     response = Net::HTTP.post_form(URI.parse(OAUTH_TOKEN_URL), params)
+    response2 = Net::HTTP.post_form(URI.parse(FIREBASE_TOKEN_URL), params)
     decoded_response = JSON.parse(response.body)
     new_expiration_time = Time.zone.now + decoded_response['expires_in']
     new_access_token = decoded_response['access_token']
